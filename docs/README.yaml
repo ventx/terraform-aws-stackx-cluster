@@ -1,7 +1,8 @@
 about: |
-  > Plan and simple Terraform cluster module which deploys Kubernetes (EKS) clusters to AWS.
-  > Supports control-plane logs ingested to CloudWatch via KMS encryption.
-  > Creates an IAM OIDC provider to be used with EKS IRSA. -- Part of stackx.
+  > Terraform cluster module which deploys a Kubernetes (EKS) cluster control-plane to AWS.
+  > Supports logs ingested to CloudWatch via KMS encryption.
+  > Deploys EKS Add-Ons "aws-vpc-cni" and "kube-proxy" with matching EKS control-plane version.
+  > Creates an IAM OIDC provider to be used with EKS IRSA authentication mechanism. -- Part of stackx.
 
 builtwith: |
   > Technologies that are used in this project.
@@ -70,11 +71,17 @@ terraform: ""
 features:
   - "Simple and easy to use, just the bare minimum"
   - Control-Plan logs ingested to CloudWatch via KMS encryption
+  - EKS Add-Ons "aws-vpc-cni" and "kube-proxy"
   - IAM OIDC provider to be used with EKS IRSA
+  - EKS Fargate Profile support (disabled by default)
 
 resources:
   - EKS
+  - EKS Fargate Profile
+  - CloudWatch Log Group
   - IAM OIDC provider
+  - IAM Policies
+  - IAM Roles
   - SecurityGroup
   - SecurityGroup rules
   - KMS Key
