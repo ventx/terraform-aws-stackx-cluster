@@ -50,7 +50,7 @@ output "sg_id" {
 
 output "vpc_id" {
   description = "EKS Cluster VPC ID"
-  value = aws_eks_cluster.cluster.vpc_config.0.vpc_id
+  value       = aws_eks_cluster.cluster.vpc_config.0.vpc_id
 }
 
 output "oidc_issuer" {

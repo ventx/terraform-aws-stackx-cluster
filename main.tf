@@ -1,7 +1,13 @@
 # Tagging
 locals {
   cluster_name = substr(lower("${var.name}${var.static_unique_id != "" ? "-" : ""}${var.static_unique_id != "" ? var.static_unique_id : ""}"), 0, 31)
-
+  cluster_tags = merge(
+    var.tags,
+    var.cluster_tags,
+    {
+      "karpenter.sh/discovery" = local.cluster_name
+    }
+  )
   log_group_name = substr(lower("${local.cluster_name}${var.static_unique_id != "" ? "-" : ""}${var.static_unique_id != "" ? var.static_unique_id : ""}"), 0, 82)
   tags = merge(
     var.tags,
@@ -57,9 +63,13 @@ resource "aws_eks_cluster" "cluster" {
     subnet_ids = flatten([var.subnet_ids])
   }
 
-
-
   tags = local.tags
+
+  timeouts {
+    create = lookup(var.tf_eks_cluster_timeouts, "create", null)
+    delete = lookup(var.tf_eks_cluster_timeouts, "delete", null)
+    update = lookup(var.tf_eks_cluster_timeouts, "update", null)
+  }
 
   # CloudWatch has to be setup first to set the Retention period - otherwise EKS creates this with unlimited retention
   # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
@@ -78,6 +88,16 @@ resource "aws_eks_cluster" "cluster" {
 }
 
 
+# --------------------------------------------------------------------------
+# Add tags to the EKS created main/primary cluster security group
+# --------------------------------------------------------------------------
+resource "aws_ec2_tag" "cluster_security_group" {
+  for_each = { for k, v in merge(local.tags, local.cluster_tags) : k => v }
+
+  resource_id = aws_eks_cluster.cluster.vpc_config[0].cluster_security_group_id
+  key         = each.key
+  value       = each.value
+}
 
 # --------------------------------------------------------------------------
 # Security Group rules

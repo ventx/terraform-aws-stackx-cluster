@@ -26,7 +26,7 @@ variable "static_unique_id" {
 variable "cluster_version" {
   description = "Kubernetes master major version (e.g. `1.21`) (https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html)"
   type        = string
-  default = "1.23"
+  default     = "1.23"
   validation {
     condition     = contains(["1.19", "1.20", "1.21", "1.22", "1.23"], var.cluster_version)
     error_message = "The selected EKS Kubernetes version is not valid - please check: https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html ."
@@ -125,7 +125,7 @@ variable "subnet_ids" {
 variable "fargate" {
   description = "Enable / Disable use of Fargate profile"
   type        = bool
-  default = false
+  default     = false
 }
 
 variable "fargate_iam_role_arn" {
@@ -137,9 +137,9 @@ variable "fargate_iam_role_arn" {
 variable "fargate_selectors" {
   description = "List of selector for Kubernetes Pods to execute with the Fargate Profile (Default to a K8s Namespace: `fargate`)"
   type        = any
-  default     = [{
-      namespace = "fargate"
-    }]
+  default = [{
+    namespace = "fargate"
+  }]
 }
 
 # Sane Timeouts
