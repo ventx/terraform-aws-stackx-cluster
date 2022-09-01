@@ -1,3 +1,8 @@
+output "cluster_version" {
+  description = "EKS Cluster K8s Version"
+  value       = aws_eks_cluster.cluster.version
+}
+
 output "k8s_version" {
   description = "EKS Cluster K8s Version"
   value       = aws_eks_cluster.cluster.version
@@ -41,6 +46,11 @@ output "eni_sg_ids" {
 output "sg_id" {
   description = "EKS Cluster Security Group ID created by Amazon EKS"
   value       = aws_eks_cluster.cluster.vpc_config.0.cluster_security_group_id
+}
+
+output "vpc_id" {
+  description = "EKS Cluster VPC ID"
+  value = aws_eks_cluster.cluster.vpc_config.0.vpc_id
 }
 
 output "oidc_issuer" {
