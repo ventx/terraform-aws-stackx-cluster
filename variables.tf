@@ -10,22 +10,27 @@ variable "tags" {
   default     = {}
 }
 
+variable "cluster_tags" {
+  description = "Add additional tags to the EKS created main/primary cluster Security Group - will be merged with `var.tags` and Karpenter discovery tag"
+  type        = map(string)
+  default     = {}
+}
+
 variable "static_unique_id" {
-  description = "Static unique ID, defined in the root module once, to be suffixed to all resources for uniqueness (if you choose uuid, some resources will be cut of at max length - empty means NO / disable unique suffix)"
+  description = "Static unique ID, defined in the root module once, to be suffixed to all resources for uniqueness (if you choose uuid / longer id, some resources will be cut of at max length - empty means disable and NOT add unique suffix)"
   type        = string
   default     = ""
 }
 
-variable "kubectl_version" {
-  description = "kubectl version to be installed and used for gitops-toolkit deployment"
-  type        = string
-  default     = "1.18.8"
-}
-
 # EKS Custer version
 variable "cluster_version" {
-  description = "Kubernetes master major version (e.g. `1.13`) (https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html)"
+  description = "Kubernetes master major version (e.g. `1.21`) (https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html)"
   type        = string
+  default = "1.23"
+  validation {
+    condition     = contains(["1.19", "1.20", "1.21", "1.22", "1.23"], var.cluster_version)
+    error_message = "The selected EKS Kubernetes version is not valid - please check: https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html ."
+  }
 }
 
 variable "eks_cluster_log_types" {
@@ -38,11 +43,15 @@ variable "ip_family" {
   description = "IP Family for EKS cluster - `ipv4` or `ipv6`"
   type        = string
   default     = "ipv4"
+  validation {
+    condition     = contains(["ipv4", "ipv6"], var.ip_family)
+    error_message = "The selected IP family is not valid, please choose one of: `ipv4` or `ipv6`."
+  }
 }
 
 # EKS API Public access
 variable "eks_api_access_cidrs" {
-  description = "IP CIDRs which are allowed to access the EKS API Public endpoint (e.g. '127.0.0.1, 1.1.1.1, 8.8.4.4')"
+  description = "IP CIDRs which are allowed to access the EKS API Public endpoint)"
   type        = list(string)
   default     = ["0.0.0.0/0"] # for initial setup
 }
@@ -68,7 +77,7 @@ variable "eks_kms_key_deletion_window" {
       var.eks_kms_key_deletion_window >= 7 &&
       var.eks_kms_key_deletion_window <= 30
     )
-    error_message = "AWS Region you selected is invalid or not enabled."
+    error_message = "KMS Key deletion windows needs to be between 7 and 30 days."
   }
 }
 
@@ -113,6 +122,26 @@ variable "subnet_ids" {
   type        = list(string)
 }
 
+variable "fargate" {
+  description = "Enable / Disable use of Fargate profile"
+  type        = bool
+  default = false
+}
+
+variable "fargate_iam_role_arn" {
+  description = "Existing IAM Role ARN to be used for Fargate Execution Role"
+  type        = string
+  default     = ""
+}
+
+variable "fargate_selectors" {
+  description = "List of selector for Kubernetes Pods to execute with the Fargate Profile (Default to a K8s Namespace: `fargate`)"
+  type        = any
+  default     = [{
+      namespace = "fargate"
+    }]
+}
+
 # Sane Timeouts
 variable "tf_eks_cluster_timeouts" {
   description = "(Optional) Updated Terraform resource management timeouts. Applies to `aws_eks_cluster` in particular to permit resource management times"
@@ -121,5 +150,14 @@ variable "tf_eks_cluster_timeouts" {
     create = "30m"
     update = "60m"
     delete = "15m"
+  }
+}
+
+variable "tf_eks_fargate_profile_timeouts" {
+  description = "(Optional) Updated Terraform resource management timeouts. Applies to `aws_eks_fargate_profile` in particular to permit resource management times"
+  type        = map(string)
+  default = {
+    create = "5m"
+    delete = "10m"
   }
 }

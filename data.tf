@@ -17,3 +17,6 @@ data "aws_eks_cluster_auth" "cluster" {
 data "aws_iam_session_context" "current" {
   arn = data.aws_caller_identity.current.arn
 }
+
+# Get the current AWS partition (aws, aws-cn, aws-us-gov)
+data "aws_partition" "current" {}
