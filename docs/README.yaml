@@ -29,9 +29,9 @@ usage: |
 
   You can run this module in conjunction with other stackx components (recommended) or as single-use (build your own).
 
-  Deployment time around: 12 minutes
+  Deployment time around (with dependency modules): 15 minutes
   ```shell
-    make apply  2.98s user 0.83s system 0% cpu 12:11.53 total
+    --- PASS: TestAwsCluster (958.78s)
   ```
 
   ### stackx (RECOMMENDED)
