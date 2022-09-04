@@ -122,6 +122,20 @@ variable "subnet_ids" {
   type        = list(string)
 }
 
+# EKS Addons
+variable "enable_addon_kube_proxy" {
+  description = "Enable / Disable EKS Addon `kube-proxy`"
+  type        = bool
+  default     = true
+}
+
+variable "enable_addon_vpc_cni" {
+  description = "Enable / Disable EKS Addon `vpc-cni`"
+  type        = bool
+  default     = true
+}
+
+# Fargate
 variable "fargate" {
   description = "Enable / Disable use of Fargate profile"
   type        = bool
