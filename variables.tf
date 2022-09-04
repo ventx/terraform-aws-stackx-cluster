@@ -122,6 +122,12 @@ variable "subnet_ids" {
   type        = list(string)
 }
 
+variable "tag_cluster_sg" {
+  description = "Add tags to EKS created Cluster Security Group"
+  type        = bool
+  default     = true
+}
+
 # EKS Addons
 variable "enable_addon_kube_proxy" {
   description = "Enable / Disable EKS Addon `kube-proxy`"
