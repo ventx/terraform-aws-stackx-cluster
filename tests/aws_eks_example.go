@@ -55,6 +55,10 @@ func runAwsClusterTest(t *testing.T) {
 		os.Setenv("AWS_ACCESS_KEY_ID", "mocktest")
 		os.Setenv("AWS_SECRET_ACCESS_KEY", "mocktest")
 
+		// Set these TF variables to disable currently not support EKS Addons in LocalStack
+		os.Setenv("TF_VAR_enable_addon_kube_proxy", "false")
+		os.Setenv("TF_VAR_enable_addon_vpc_cni", "false")
+
 		customResolver := awssdk.EndpointResolverWithOptionsFunc(func(service, region string, options ...interface{}) (awssdk.Endpoint, error) {
 			if service == ec2.ServiceID {
 				return awssdk.Endpoint{
