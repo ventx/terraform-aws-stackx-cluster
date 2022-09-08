@@ -122,6 +122,26 @@ variable "subnet_ids" {
   type        = list(string)
 }
 
+variable "tag_cluster_sg" {
+  description = "Add tags to EKS created Cluster Security Group"
+  type        = bool
+  default     = true
+}
+
+# EKS Addons
+variable "enable_addon_kube_proxy" {
+  description = "Enable / Disable EKS Addon `kube-proxy`"
+  type        = bool
+  default     = true
+}
+
+variable "enable_addon_vpc_cni" {
+  description = "Enable / Disable EKS Addon `vpc-cni`"
+  type        = bool
+  default     = true
+}
+
+# Fargate
 variable "fargate" {
   description = "Enable / Disable use of Fargate profile"
   type        = bool

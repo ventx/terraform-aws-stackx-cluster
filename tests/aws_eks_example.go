@@ -27,6 +27,8 @@ func runAwsClusterTest(t *testing.T) {
 
 	var _ awssdk.Config
 
+	tfVars := map[string]interface{}{}
+
 	// Localstack check
 	//
 	// Waiting for:
@@ -55,6 +57,12 @@ func runAwsClusterTest(t *testing.T) {
 		os.Setenv("AWS_ACCESS_KEY_ID", "mocktest")
 		os.Setenv("AWS_SECRET_ACCESS_KEY", "mocktest")
 
+		tfVars = map[string]interface{}{
+                        "enable_addon_kube_proxy": false,
+                        "enable_addon_vpc_cni": false,
+                        "tag_cluster_sg": false,
+                  }
+
 		customResolver := awssdk.EndpointResolverWithOptionsFunc(func(service, region string, options ...interface{}) (awssdk.Endpoint, error) {
 			if service == ec2.ServiceID {
 				return awssdk.Endpoint{
@@ -82,6 +90,8 @@ func runAwsClusterTest(t *testing.T) {
 		EnvVars: map[string]string{
 			"AWS_DEFAULT_REGION": awsRegion,
 		},
+
+  		Vars: tfVars,
 	})
 
 	// At the end of the test, run `terraform destroy`

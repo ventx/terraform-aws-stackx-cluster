@@ -92,7 +92,7 @@ resource "aws_eks_cluster" "cluster" {
 # Add tags to the EKS created main/primary cluster security group
 # --------------------------------------------------------------------------
 resource "aws_ec2_tag" "cluster_security_group" {
-  for_each = { for k, v in merge(local.tags, local.cluster_tags) : k => v }
+  for_each = { for k, v in merge(local.tags, local.cluster_tags) : k => v if var.tag_cluster_sg }
 
   resource_id = aws_eks_cluster.cluster.vpc_config[0].cluster_security_group_id
   key         = each.key
