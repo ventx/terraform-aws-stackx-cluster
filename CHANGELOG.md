@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.0](https://github.com/ventx/terraform-aws-stackx-cluster/compare/v0.1.0...v0.2.0) (2022-09-08)
+
+
+### Features
+
+* add conditional for tagging the EKS-created Cluster Security Group (e.g. for Karpenter, etc.) ([7bd0bed](https://github.com/ventx/terraform-aws-stackx-cluster/commit/7bd0bed0ab8f755e2bf8980dbc0caa379627a280))
+* add conditionals and TF Vars to enable vpc-cni and kube-proxy EKS Add-Ons one by one ([3add345](https://github.com/ventx/terraform-aws-stackx-cluster/commit/3add345c0115342930856286121325682c4aff20))
+
 ## 0.1.0 (2022-09-01)
 
 
