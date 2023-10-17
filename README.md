@@ -242,7 +242,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_cluster_cw_retention"></a> [cluster\_cw\_retention](#input\_cluster\_cw\_retention) | Specifies the number of days you want to retain log events in the log group for EKS Cluster events (e.g. `90` => 90 days) | `number` | `1` | no |
 | <a name="input_cluster_tags"></a> [cluster\_tags](#input\_cluster\_tags) | Add additional tags to the EKS created main/primary cluster Security Group - will be merged with `var.tags` and Karpenter discovery tag | `map(string)` | `{}` | no |
-| <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | Kubernetes master major version (e.g. `1.21`) (https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html) | `string` | `"1.23"` | no |
+| <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | Kubernetes master major version (e.g. `1.28`) (https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html) | `string` | `"1.27"` | no |
 | <a name="input_cw_kms_arn"></a> [cw\_kms\_arn](#input\_cw\_kms\_arn) | KMS Key ARN for CloudWatch encryption - if not set, your EKS control plane logs will be ingested unencrypted | `string` | `""` | no |
 | <a name="input_eks_api_access_cidrs"></a> [eks\_api\_access\_cidrs](#input\_eks\_api\_access\_cidrs) | IP CIDRs which are allowed to access the EKS API Public endpoint) | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
 | <a name="input_eks_cluster_log_types"></a> [eks\_cluster\_log\_types](#input\_eks\_cluster\_log\_types) | Log types to enable for EKS Cluster (Master) - Valid values: `api`, `audit`, `authenticator`, `controllerManager`, `scheduler` | `list(string)` | <pre>[<br>  "api",<br>  "audit",<br>  "authenticator",<br>  "controllerManager",<br>  "scheduler"<br>]</pre> | no |
@@ -275,13 +275,14 @@ No modules.
 | <a name="output_cluster_endpoint"></a> [cluster\_endpoint](#output\_cluster\_endpoint) | EKS Cluster endpoint |
 | <a name="output_cluster_name"></a> [cluster\_name](#output\_cluster\_name) | EKS Cluster name |
 | <a name="output_cluster_role_arn"></a> [cluster\_role\_arn](#output\_cluster\_role\_arn) | ARN of the EKS cluster IAM role |
+| <a name="output_cluster_security_group_id"></a> [cluster\_security\_group\_id](#output\_cluster\_security\_group\_id) | EKS Cluster Security Group ID created by Amazon EKS |
 | <a name="output_cluster_version"></a> [cluster\_version](#output\_cluster\_version) | EKS Cluster K8s Version |
 | <a name="output_eni_sg_ids"></a> [eni\_sg\_ids](#output\_eni\_sg\_ids) | EKS Cluster cross-account ENIs Security Group IDs |
 | <a name="output_k8s_version"></a> [k8s\_version](#output\_k8s\_version) | EKS Cluster K8s Version |
 | <a name="output_oidc_issuer"></a> [oidc\_issuer](#output\_oidc\_issuer) | Issuer URL of EKS Cluster OIDC |
 | <a name="output_oidc_issuer_arn"></a> [oidc\_issuer\_arn](#output\_oidc\_issuer\_arn) | OIDC Identity issuer ARN for the EKS cluster (IRSA) |
 | <a name="output_platform_version"></a> [platform\_version](#output\_platform\_version) | EKS Cluster Platform Version |
-| <a name="output_sg_id"></a> [sg\_id](#output\_sg\_id) | EKS Cluster Security Group ID created by Amazon EKS |
+| <a name="output_sg_id"></a> [sg\_id](#output\_sg\_id) | EKS Cluster Security Group ID created by Amazon EKS (convenience output) |
 | <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | EKS Cluster VPC ID |
 <!-- END_TF_DOCS -->
 
