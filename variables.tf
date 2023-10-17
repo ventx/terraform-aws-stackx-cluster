@@ -24,11 +24,11 @@ variable "static_unique_id" {
 
 # EKS Custer version
 variable "cluster_version" {
-  description = "Kubernetes master major version (e.g. `1.21`) (https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html)"
+  description = "Kubernetes master major version (e.g. `1.28`) (https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html)"
   type        = string
   default     = "1.23"
   validation {
-    condition     = contains(["1.19", "1.20", "1.21", "1.22", "1.23"], var.cluster_version)
+    condition     = contains(["1.24", "1.25", "1.26", "1.27", "1.28"], var.cluster_version)
     error_message = "The selected EKS Kubernetes version is not valid - please check: https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html ."
   }
 }

@@ -21,6 +21,6 @@ resource "aws_iam_role" "eks_cluster" {
 
 resource "aws_iam_role_policy_attachment" "attach" {
   for_each   = toset(["AmazonEKSClusterPolicy", "AmazonEKSServicePolicy", "AmazonEKSVPCResourceController"])
-  policy_arn = "arn:aws:iam::aws:policy/${each.key}"
+  policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/${each.key}"
   role       = aws_iam_role.eks_cluster.name
 }

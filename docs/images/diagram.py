@@ -14,7 +14,7 @@ vpccni_url = "https://user-images.githubusercontent.com/50456/83688420-3a52a080-
 vpccni_icon = "icon-vpccni.png"
 urlretrieve(vpccni_url, vpccni_icon)
 
-with Diagram("terraform-aws-stackx-cluster", outformat="png", filename="screenshot1", show=True):
+with Diagram("terraform-aws-stackx-cluster", outformat="png", filename="screenshot1", show=False):
     with Cluster("EKS"):
 
       eks = ElasticKubernetesService("EKS")
