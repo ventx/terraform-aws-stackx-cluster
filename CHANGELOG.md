@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0](https://github.com/ventx/terraform-aws-stackx-cluster/compare/v0.2.0...v0.3.0) (2023-10-17)
+
+
+### Features
+
+* fixed deprecations, replaced terratest with native terraform test, update tests and docs ([bbdb367](https://github.com/ventx/terraform-aws-stackx-cluster/commit/bbdb3679ad2877040429b036196c8758d93471c1))
+
+
+### Bug Fixes
+
+* default value to legit version ([322e059](https://github.com/ventx/terraform-aws-stackx-cluster/commit/322e059f51d4888e9e4016d1ddaa7c6159db3c47))
+
 ## [0.2.0](https://github.com/ventx/terraform-aws-stackx-cluster/compare/v0.1.0...v0.2.0) (2022-09-08)
 
 
