@@ -43,8 +43,13 @@ output "eni_sg_ids" {
   value       = aws_eks_cluster.cluster.vpc_config.0.security_group_ids
 }
 
-output "sg_id" {
+output "cluster_security_group_id" {
   description = "EKS Cluster Security Group ID created by Amazon EKS"
+  value       = aws_eks_cluster.cluster.vpc_config.0.cluster_security_group_id
+}
+
+output "sg_id" {
+  description = "EKS Cluster Security Group ID created by Amazon EKS (convenience output)"
   value       = aws_eks_cluster.cluster.vpc_config.0.cluster_security_group_id
 }
 
