@@ -49,7 +49,7 @@ resource "aws_iam_role" "fargate" {
   count = var.fargate && var.fargate_iam_role_arn == "" ? 1 : 0
 
   // expected length of name to be in the range (1 - 64)
-  name        = substr(lower(trimspace(("eks-fargate-${local.cluster_name}${var.static_unique_id != "" ? "-" : ""}${var.static_unique_id != "" ? var.static_unique_id : ""}"))), 0, 63)
+  name        = substr(lower(trimspace(("eks-fargate-${local.cluster_name}"))), 0, 63)
   description = "EKS Fargate Profile for ${local.cluster_name}"
 
   assume_role_policy    = data.aws_iam_policy_document.fargate_assume_role_policy[0].json

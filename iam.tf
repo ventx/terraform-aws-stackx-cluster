@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "tr" {
 
 resource "aws_iam_role" "eks_cluster" {
   // expected length of name to be in the range (1 - 64)
-  name               = substr(lower(trimspace(("eks-cluster-${local.cluster_name}${var.static_unique_id != "" ? "-" : ""}${var.static_unique_id != "" ? var.static_unique_id : ""}"))), 0, 63)
+  name               = substr(lower(trimspace(("eks-cluster-${local.cluster_name}"))), 0, 63)
   assume_role_policy = data.aws_iam_policy_document.tr.json
 
   tags = local.tags

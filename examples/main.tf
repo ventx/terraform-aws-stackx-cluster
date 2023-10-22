@@ -1,9 +1,8 @@
 module "stackx-cluster" {
   source = "../"
 
-  cluster_version  = "1.27"
-  static_unique_id = "f2f6c971-6a3c-4d6e-9dca-7a3ba454d64d" # just random uuid generated for testing cut offs etc
-  subnet_ids       = module.stackx-network.private_subnet_ids
+  cluster_version = "1.27"
+  subnet_ids      = module.stackx-network.private_subnet_ids
 
   tag_cluster_sg          = var.tag_cluster_sg
   enable_addon_kube_proxy = var.enable_addon_kube_proxy
@@ -16,7 +15,7 @@ module "stackx-cluster" {
 
 module "stackx-network" {
   source  = "ventx/stackx-network/aws"
-  version = "0.2.1"
+  version = "0.2.3"
 
   name           = "stackx-0-network"
   workspace_name = var.workspace_name

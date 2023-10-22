@@ -31,7 +31,7 @@ resource "aws_iam_policy" "vpc_cni_ipv6" {
 
   # https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html
   # max. 128 characters
-  name = substr(lower("AmazonEKS_CNI_IPv6_Policy-${local.cluster_name}${var.static_unique_id != "" ? "-" : ""}${var.static_unique_id != "" ? var.static_unique_id : ""}"), 0, 127)
+  name = substr(lower("AmazonEKS_CNI_IPv6_Policy-${local.cluster_name}"), 0, 127)
 
   description = "IAM policy for EKS CNI to assign IPV6 addresses"
   policy      = data.aws_iam_policy_document.vpc_cni_ipv6.0.json
@@ -63,7 +63,7 @@ resource "aws_iam_role" "vpc_cni" {
   count = var.enable_addon_vpc_cni ? 1 : 0
 
   // expected length of name to be in the range (1 - 64)
-  name = substr(lower(trimspace(("AmazonEKS_CNI_Role-${local.cluster_name}${var.static_unique_id != "" ? "-" : ""}${var.static_unique_id != "" ? var.static_unique_id : ""}"))), 0, 63)
+  name = substr(lower(trimspace(("AmazonEKS_CNI_Role-${local.cluster_name}"))), 0, 63)
 
   assume_role_policy = data.aws_iam_policy_document.vpc_cni.0.json
 

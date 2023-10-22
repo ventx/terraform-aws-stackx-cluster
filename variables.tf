@@ -16,12 +16,6 @@ variable "cluster_tags" {
   default     = {}
 }
 
-variable "static_unique_id" {
-  description = "Static unique ID, defined in the root module once, to be suffixed to all resources for uniqueness (if you choose uuid / longer id, some resources will be cut of at max length - empty means disable and NOT add unique suffix)"
-  type        = string
-  default     = ""
-}
-
 # EKS Custer version
 variable "cluster_version" {
   description = "Kubernetes master major version (e.g. `1.28`) (https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html)"

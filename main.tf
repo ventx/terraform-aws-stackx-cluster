@@ -1,6 +1,6 @@
 # Tagging
 locals {
-  cluster_name = substr(lower("${var.name}${var.static_unique_id != "" ? "-" : ""}${var.static_unique_id != "" ? var.static_unique_id : ""}"), 0, 31)
+  cluster_name = substr(lower(var.name), 0, 31)
   cluster_tags = merge(
     var.tags,
     var.cluster_tags,
@@ -8,7 +8,7 @@ locals {
       "karpenter.sh/discovery" = local.cluster_name
     }
   )
-  log_group_name = substr(lower("${local.cluster_name}${var.static_unique_id != "" ? "-" : ""}${var.static_unique_id != "" ? var.static_unique_id : ""}"), 0, 82)
+  log_group_name = substr(lower(local.cluster_name), 0, 82)
   tags = merge(
     var.tags,
     {
