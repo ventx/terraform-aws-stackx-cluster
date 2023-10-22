@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/ventx/terraform-aws-stackx-cluster/compare/v0.3.0...v0.3.1) (2023-10-22)
+
+
+### Bug Fixes
+
+* remove legacy static_unique_id variable to simplify code (var not required anymore) ([437516e](https://github.com/ventx/terraform-aws-stackx-cluster/commit/437516e4d94632eacb71c11375dd889df6161e26))
+
 ## [0.3.0](https://github.com/ventx/terraform-aws-stackx-cluster/compare/v0.2.0...v0.3.0) (2023-10-17)
 
 
